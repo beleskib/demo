@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hotel</title>
+    <!--<link href="/static/css/bootstrap.min.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>-->
+    <!--<script src="/static/js/bootstrap.js" type="application/javascript"></script>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/esm/popper-utils.js"></script>-->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <style>
+        header{
+            display: block;
+        }
+        .jumbotron{
+            background-image: url(http://rs-insurance.co.uk/wp-content/uploads/2014/07/04-Worldwide-Travel-Cover.jpg);
+            text-align: center;
+            color: #fff;
+            background-repeat: no-repeat;
+            background-attachment: scroll;
+            background-position: center center;
+            background-size: cover;
+            height: 400px;
+        }
+        #poz{
+            color: #0d0d0d;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-light">
+    <div class="container">
+        <a class="navbar-brand" id="poz" href="/hotels">Hotel</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+                aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class=" collapse  navbar-collapse justify-content-end " id="navbarsExampleDefault">
+            <ul class="navbar-nav m-auto"  style="font-size: 23px;">
+                <li class="nav-item m-auto">
+                    <a class="nav-link" href="/souvenirs" style="color: #484848; ">Hotel Souvenirs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/clients" style="color: #484848;">Clients</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="OnlinePayment.html" style="color: #484848;">Online Booking</a>
+                </li>
+            </ul>
+
+            <form class="form-inline my-2 my-lg-0">
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                           placeholder="Search...">
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-secondary btn-number">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                    <a class="btn btn-light btn-sm ml-3" href="/logout">
+                        <i class="fa fa-shopping-cart"></i> Logout
+                    </a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</nav>
+<header>
+    <section class="jumbotron text-center" >
+        <div class="container">
+            <h1 class="jumbotron-heading">Enjoy every moment</h1>
+        </div>
+    </section>
+</header>
+<!--<div th:if="${param.error}">-->
+<!--<h2 class="text-center text-danger " th:text="${param.error}"></h2>-->
+<!--</div>-->
+<div class="container mb-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Hotel Name</th>
+                        <th scope="col">Number of Rooms</th>
+                        <th scope="col">Price per night</th>
+                        <th scope="col">Number of Stars</th>
+                        <th scope="col"></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="hotel: ${hotels}">
+                        <td th:text="${hotel.name}"></td>
+                        <td th:text="${hotel.noRooms}"></td>
+                        <td th:text="${hotel.pricePerNight}"></td>
+                        <td th:text="${hotel.stars}"></td>
+
+                        <td class="text-right">
+                            <form th:method="delete" th:action="@{'hotels/delete/{id}' (id=${hotel.id})}">
+                                <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash">Delete</i></button>
+                            </form>
+                            <a class="nav-link active" href="/hotels/addHotel" style="color: #484848;">Edit</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col mb-2">
+            <div class="row">
+                <div class="col-sm-12  col-md-12 text-center">
+                    <a th:href="@{/hotels/addHotel}" type="button" class="btn btn-success">Add new hotel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="xpi__searchbox js-ds-layout-events-search-form">
+    <h1 class="
+sb-searchbox__title
+">
+<span class="sb-searchbox__title-text">
+Find deals on hotels, homes and much more...
+</span>
+    </h1>
+    <div class="
+sb-searchbox__subtitle-text
+">
+        Find exclusive Genius rewards in every corner of the world!
+    </div>
+    <div class="
+sb-searchbox__outer
+sb-genius
+" data-sb-outer="">
+        <form id="frm" method="get" action="https://www.booking.com/searchresults.en-gb.html?aid=376363;label=booking-name-L%2AXf2U1sq4%2AGEkIwcLOALQS461484942861%3Apl%3Ata%3Ap1%3Ap22%2C563%2C000%3Aac%3Aap%3Aneg%3Afi%3Atikwd-65526620%3Alp2807%3Ali%3Adec%3Adm%3Appccp%3DUmFuZG9tSVYkc2RlIyh9YfqnDqqG8nt1XFzPnqOODws;sid=21533698010e1d64ddc040b584f535eb;srpvid=f07e54fe0fba0064&amp;" role="search" class="
+sb-searchbox
+sb-searchbox--painted
+js--sb-searchbox
+" data-component="search/searchbox/searchbox-xp" data-sb-id="main" data-sb-flags=" AEJPAcBacPONDcFGHT:0 GbQUJFRURURYSfZGfeVdXT:0 calendar_on_destination_change:1 open_location_in_map_checkbox:1 with_popular_nearby_suggestions:1 can_show_sb_entire_place_checkbox:1 icon_revamp:1 region_second_line:1" data-is-first-visible="1">
+            <input type="hidden" name="aid" value="376363">
+            <input type="hidden" name="label" value="booking-name-L*Xf2U1sq4*GEkIwcLOALQS461484942861:pl:ta:p1:p22,563,000:ac:ap:neg:fi:tikwd-65526620:lp2807:li:dec:dm:ppccp=UmFuZG9tSVYkc2RlIyh9YfqnDqqG8nt1XFzPnqOODws">
+            <input type="hidden" name="lang" value="en-gb">
+            <input type="hidden" name="sid" value="21533698010e1d64ddc040b584f535eb">
+            <input type="hidden" name="sb" value="1">
+            <input type="hidden" name="sb_lp" value="1">
+            <input type="hidden" name="src" value="index">
+            <input type="hidden" name="src_elem" value="sb">
+            <input type="hidden" name="error_url" value="https://www.booking.com/index.en-gb.html?aid=376363;label=booking-name-L%2AXf2U1sq4%2AGEkIwcLOALQS461484942861%3Apl%3Ata%3Ap1%3Ap22%2C563%2C000%3Aac%3Aap%3Aneg%3Afi%3Atikwd-65526620%3Alp2807%3Ali%3Adec%3Adm%3Appccp%3DUmFuZG9tSVYkc2RlIyh9YfqnDqqG8nt1XFzPnqOODws;sid=21533698010e1d64ddc040b584f535eb;sb_price_type=total;srpvid=f07e54fe0fba0064&amp;;">
+            <div class="xp__fieldset js--sb-fieldset accommodation" data-view="accommodation">
+                <div data-visible="accommodation,flights,rentalcars" class="xp__input-group xp__search" data-destination-input="">
+                    <svg class="bk-icon -iconset-landmark" height="128" style="display:none;" width="128" viewBox="0 0 128 128" role="presentation" aria-hidden="true" focusable="false"><rect x="8" y="106" width="112" height="10" rx="2" ry="2"></rect><path d="M24 60a2 2 0 0 0-2 1.8v34.4a2 2 0 0 0 2 1.8h8a2 2 0 0 0 2-1.8V61.8a2 2 0 0 0-2-1.8zm24 0a2 2 0 0 0-2 1.8v34.4a2 2 0 0 0 2 1.8h8a2 2 0 0 0 2-1.8V61.8a2 2 0 0 0-2-1.8zm24 0a2 2 0 0 0-2 1.8v34.4a2 2 0 0 0 2 1.8h8a2 2 0 0 0 2-1.8V61.8a2 2 0 0 0-2-1.8zm24 0a2 2 0 0 0-2 1.8v34.4a2 2 0 0 0 2 1.8h8a2 2 0 0 0 2-1.8V61.8a2 2 0 0 0-2-1.8zm-85.8-8h107.6a2 2 0 0 0 1.3-3.7L65 12.3a2 2 0 0 0-2.2 0l-53.9 36a2 2 0 0 0 1.3 3.7z"></path></svg>
+                    <svg class="bk-icon -iconset-airplane" height="128" style="display:none;" width="128" viewBox="0 0 128 128" role="presentation" aria-hidden="true" focusable="false"><path d="M8.3 83.1l2.8-2.8a1 1 0 0 1 .7-.3h27.3l16-17.5-41.7-32a4 4 0 0 1-1.1-5.3l1.3-2.8a4 4 0 0 1 5.1-1.6l55.5 21.1L98 16a28.6 28.6 0 0 1 18-8 4 4 0 0 1 4 4 28.6 28.6 0 0 1-8 18L86.6 53.4l21 55.3a4 4 0 0 1-1.6 5.1l-2.7 1.4A4 4 0 0 1 98 114L66 72.3 48 89v27.3a1 1 0 0 1-.3.7l-2.8 2.8a1 1 0 0 1-1.6-.2L30.7 97.3 8.5 84.7a1 1 0 0 1-.2-1.6z"></path></svg>
+                    <svg class="bk-icon -iconset-geo_pin" height="128" style="display:none;" width="128" viewBox="0 0 128 128" role="presentation" aria-hidden="true" focusable="false"><path d="M98.5 42.5a34.5 34.5 0 1 0-64.3 17.2L64 120l29.8-60.3a34.2 34.2 0 0 0 4.7-17.2zM64 59.7a17.2 17.2 0 1 1 17-17 17.2 17.2 0 0 1-17 17z"></path></svg>
+                    <svg class="bk-icon -iconset-bed" height="128" style="display:none;" width="128" viewBox="0 0 128 128" role="presentation" aria-hidden="true" focusable="false"><path d="M120 96v11.8a4.1 4.1 0 0 1-3.6 4.2 4 4 0 0 1-4.4-4v-4H16v3.8a4.1 4.1 0 0 1-3.6 4.2 4 4 0 0 1-4.4-4V96a8 8 0 0 1 8-8h96a8 8 0 0 1 8 8zm-8-16a16 16 0 0 0-16-16H32a16 16 0 0 0-16 16v4h96zM24 36a4 4 0 0 1 4-4h72a4 4 0 0 1 4 4v16l8 8V36a12 12 0 0 0-12-12H28a12 12 0 0 0-12 12v24l8-8z"></path></svg>
+                    <svg class="bk-icon -iconset-skiing" height="128" style="display:none;" width="128" viewBox="0 0 128 128" role="presentation" aria-hidden="true" focusable="false"><path d="M79 29.4L70 22c8.4-8 15.4-4.8 15.4-4.8a5.5 5.5 0 0 1 4.1 5 6 6 0 0 1 0 .8l-1.4 20.2 14.6 11.4a3 3 0 0 1-3.4 4.9L81.7 48.3a3.6 3.6 0 0 1-1.7-2.8V45zM33.6 15.3l36 26a4 4 0 0 0 4.6-6.5l-36-26a4 4 0 0 0-4.6 6.4zM104 24a8 8 0 1 0-8-8 8 8 0 0 0 8 8zM56.9 79a3 3 0 0 0 4.2.2l17.7-16.3a4.2 4.2 0 0 0 .5-.5 3.8 3.8 0 0 0-.7-5.4l-.5-.4L59.6 42a7.5 7.5 0 0 0-.8-.5L54 38a28.8 28.8 0 0 0-4.8 6 7 7 0 0 0 3.2 10l16.9 7.4L56.9 75a3 3 0 0 0 0 4zm61 25.6a4 4 0 0 0-5.4 1.6s-2.5 4.4-6.7 5.5c-2.6.7-5.5 0-8.7-2l-83-53a4 4 0 0 0-4.3 6.7c.7.5 71.4 45.8 83 53.1a20.5 20.5 0 0 0 11 3.5 16 16 0 0 0 4.1-.6 20 20 0 0 0 11.6-9.4 4 4 0 0 0-1.6-5.4z"></path></svg>
+                    <div data-component="search/destination/input" data-sb-id="main" data-gpf="1" data-required="1" data-flags="" data-open-focus="" data-minlength="1" data-focus-on-typing="1">
+                        <div class="
+c-autocomplete
+sb-destination
+region_second_line
+">
+                            <label class="sb-destination-label-sr">
+                                <span class="bui-u-sr-only">Please type your destination</span>
+                                <input type="search" name="ss" id="ss" class="c-autocomplete__input sb-searchbox__input sb-destination__input" placeholder="Where are you going?" value="" autocomplete="off" data-component="search/destination/input-placeholder" data-sb-id="main" data-input="" aria-autocomplete="both" aria-label="Please type your destination">
+                            </label>
+                            <ul data-list="" class="c-autocomplete__list sb-autocomplete__list sb-autocomplete__list-with_photos" role="listbox" aria-label="List of suggested destinations " style=""></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer -->
+            <footer class="text-black-50 bg-light page-section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 text-center" style="padding: 100px;">
+                            <h5>About</h5>
+                            <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+                            <p class="mb-0">
+                                Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant
+                                impression.
+                            </p>
+                        </div>
+                        <div class="col-lg-12 text-center" style="padding: 100px;" >
+                            <h5>Contact</h5>
+                            <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+                            <ul class="list-unstyled">
+                                <li><i class="fa fa-home mr-2"></i> Beles Company</li>
+                                <li><i class="fa fa-envelope mr-2"></i> bojanbeleski@gmail.com</li>
+                                <li><i class="fa fa-phone mr-2"></i> + 33 12 14 15 16</li>
+                                <li><i class="fa fa-print mr-2"></i> + 33 12 14 15 16</li>
+                            </ul>
+                            <div></div>
+                        </div>
+                        <div class="col-12 copyright mt-3">
+                            <p class="float-left">
+                                <a href="#">Back to top</a>
+                            </p>
+                            <p class="text-right text-muted">created with <i class="fa fa-heart"></i> by <a
+                                    href="https://t-php.fr/43-theme-ecommerce-bootstrap-4.html"><i>t-php</i></a> |
+                                <span>v. 1.0</span></p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </form>
+    </div>
+</div>
+</body>
+</html>
