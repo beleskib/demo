@@ -10,6 +10,4 @@ public interface KorisnikService extends UserDetailsService {
 
     Korisnik register(String username, String password, String repeatPassword, String name, String surname, Role role);
 
-
-
 }

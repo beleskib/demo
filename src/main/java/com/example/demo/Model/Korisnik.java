@@ -18,8 +18,6 @@ public class Korisnik implements UserDetails {
     private String name;
     private String surname;
 
-
-
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
